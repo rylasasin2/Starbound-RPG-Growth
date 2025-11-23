@@ -22,7 +22,7 @@ function update(dt)
 
   --Effect Expires if Specialization is no longer correct.
   --Must keep this for every Ability, but change the specttype and classtype!!!
-  if world.entityCurrency(self.id, "spectype") ~= 2 or world.entityCurrency(self.id, "classtype") ~= 2 then
+  if not ( (world.entityCurrency(self.id, "spectype") == 2 and world.entityCurrency(self.id, "classtype") == 2) or (world.entityCurrency(self.id, "spectype") == 10 and world.entityCurrency(self.id, "classtype") == 1)) then
     effect.expire()
   end
 

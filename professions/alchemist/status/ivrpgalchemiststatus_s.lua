@@ -7,6 +7,9 @@ function init()
   self.id = entity.id()
   self.colors = config.getParameter("colors")
   self.timer = 0
+  self.init = false
+  self.directiveApplyTimer = 0.0
+  self.directiveApplyTimerCycle = 1.0
 end
 
 function update(dt)
@@ -18,7 +21,11 @@ function update(dt)
     local color = self.colors[self.element]
     if color then
       local ratio = self.timer / 10 * 0.5
-      effect.setParentDirectives("?fade=" .. color .. "=" .. tostring(ratio))
+      if self.directiveApplyTimer <= 0 then
+		effect.setParentDirectives("?fade=" .. color .. "=" .. tostring(ratio))
+		self.directiveApplyTimer = self.directiveApplyTimer + self.directiveApplyTimerCycle
+      end
+      self.directiveApplyTimer = self.directiveApplyTimer - dt
     end
   else
     reset()
